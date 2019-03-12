@@ -55,14 +55,14 @@ function pickRandomChapter() {  //TODO add more chapter and pick random
   switch(index) {
   case 1:
     console.log("Hé");
-    return ch2;
+    return wooclapCh1;
     break;
   case 2:
   console.log("Ho");
-    return ch2;
+    return wooclapCh2;
     break;
   default:
-    return ch2;
+    return wooclapCh2;
 }
 }
 
