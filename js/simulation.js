@@ -33,6 +33,7 @@ var state = {
 
 function launchSimulation() {
   // TODO fix more parameters
+  $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
   state.actualPoints = 0;
   nextQuestion();
