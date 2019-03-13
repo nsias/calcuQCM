@@ -3,6 +3,7 @@ var state = {
   _maxPoints : 7,
   _question : 0,
   _actualJustification : "",
+  _questionsAsked : [],
   // Getters
   get actualPoints() {
     return this._actualPoints;
@@ -16,6 +17,9 @@ var state = {
   get justification() {
     return this._actualJustification;
   },
+  get questionsAsked() {
+    return this._questionsAsked;
+  },
   //Setter
   set actualPoints(val) {
     this._actualPoints = val;
@@ -28,6 +32,9 @@ var state = {
   },
   set justification(val) {
     this._actualJustification = val;
+  },
+  set questionsAsked(val) {
+    this._questionsAsked = val;
   }
 };
 
@@ -36,6 +43,7 @@ function launchSimulation() {
   $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
   state.actualPoints = 0;
+  state.questionsAsked = [];
   nextQuestion();
 }
 
@@ -55,11 +63,9 @@ function pickRandomChapter() {  //TODO add more chapter and pick random
   let index = randomInteger(1,2);
   switch(index) {
   case 1:
-    console.log("Hé");
     return wooclapCh1;
     break;
   case 2:
-  console.log("Ho");
     return wooclapCh2;
     break;
   default:
@@ -67,8 +73,17 @@ function pickRandomChapter() {  //TODO add more chapter and pick random
 }
 }
 
-function pickQuestion() {  // TODO read from json file + avoid pick same question
-  return pickRandomChapter()[randomInteger(0, 7)];
+function pickQuestion() {  //TODO avoid pick same question
+  var questionPicked = pickRandomChapter()[randomInteger(0, pickRandomChapter().length)];
+  if (state.questionsAsked.indexOf(questionPicked) != -1) {
+    return pickQuestion();
+    console.log("Try again");
+  }
+  else {
+    state.questionsAsked.push(questionPicked);
+    console.table(state.questionsAsked);
+    return questionPicked;
+  }
 }
 
 function renderQuestion({assertion, response, justification}) {
