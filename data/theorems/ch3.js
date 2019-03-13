@@ -1,4 +1,4 @@
-var theorems =[
+var theoremCh3 =[
   {
     "name" : "Théorème de rice (contraposé)",
     "enonce": "enonce_00",
