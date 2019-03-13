@@ -70,18 +70,64 @@ function pickRandomChapter() {  //TODO add more chapter and pick random
     break;
   default:
     return wooclapCh2;
+  }
 }
+
+function getNbQuestionFromChapter(id) {
+  switch(id) {
+    case '1' : return  wooclapCh1.length;
+    case '2' : return  wooclapCh2.length;
+    case '3' : break;
+    case 'all' : return (wooclapCh1.length + wooclapCh2.length);
+    default : break;
+  }
+}
+
+function addListenerOptions() {
+  $("#checklist-options").on("change", function() {
+    var length = 0;
+    $.each($("input[name='checklist-options']:checked"), function(){
+                  length += getNbQuestionFromChapter($(this).attr("id"));
+    });
+    var html = "";
+    for (i = 1; i < length - 1; i ++) {
+      html += '<option>'+i+'</option>';
+    }
+    $("#nbQuestionToAsk").html(html);
+  });
+}
+
+function showPopupOptionsSimulation() {
+  checklist = '<ul class="list-group" id="checklist-options" style="color:black;">';
+  checklist += '<li class="list-group-item"><input type="checkbox" name="checklist-options" class="form-check-input" id="all" checked> <label class="form-check-label" for="exampleCheck1">Tout, comme à l\'examen !</label></li>';
+  checklist += '<li class="list-group-item"><input type="checkbox" name="checklist-options" class="form-check-input" id="1"> <label class="form-check-label" for="exampleCheck1">Chapitre 1</label></li>';
+  checklist += '<li class="list-group-item"><input type="checkbox" name="checklist-options" class="form-check-input" id="2"> <label class="form-check-label" for="exampleCheck1">Chapitre 2</label></li>';
+  checklist += '<li class="list-group-item"><input type="checkbox" name="checklist-options" class="form-check-input" id="3" disabled> <label class="form-check-label" for="exampleCheck1">Chapitre 3</label></li>';
+  checklist += '<li class="list-group-item"><input type="checkbox" name="checklist-options" class="form-check-input" id="4" disabled> <label class="form-check-label" for="exampleCheck1">Chapitre 4</label></li>';
+  checklist += '<li class="list-group-item"><input type="checkbox" name="checklist-options" class="form-check-input" id="5" disabled> <label class="form-check-label" for="exampleCheck1">Chapitre 5</label></li>';
+  checklist += '<li class="list-group-item"><input type="checkbox" name="checklist-options" class="form-check-input" id="6" disabled> <label class="form-check-label" for="exampleCheck1">Chapitre 6</label></li>';
+  checklist += '<li class="list-group-item"><input type="checkbox" name="checklist-options" class="form-check-input" id="7" disabled> <label class="form-check-label" for="exampleCheck1">Chapitre 7</label></li>';
+  checklist += '</ul>';
+  checklist += 'Nombre de questions posées';
+  checklist += '<select class="form-control" id="nbQuestionToAsk">';
+  checklist += '<option>Comme à l\'examen ! </option>';
+  checklist += '<option> 1 </option>';
+  checklist += '</select>';
+  $("#popup").attr("class", "modal-content bg-2");
+  $("#popup-title").html("Ciblez les chapitres");
+  $("#popup-body").html(checklist);
+  $("#popup-button").html("C'est parti !");
+  $("#myModal").modal("show");
+  addListenerOptions();
 }
 
 function pickQuestion() {  //TODO avoid pick same question
   var questionPicked = pickRandomChapter()[randomInteger(0, pickRandomChapter().length)];
   if (state.questionsAsked.indexOf(questionPicked) != -1) {
     return pickQuestion();
-    console.log("Try again");
   }
   else {
     state.questionsAsked.push(questionPicked);
-    console.table(state.questionsAsked);
     return questionPicked;
   }
 }
@@ -110,7 +156,6 @@ function renderBadAnswer(){
 
 
 function interpretResponse(answer, response) {
-
   if (answer == response) {
     state.actualPoints += 1;
     renderGoodAnswer();
