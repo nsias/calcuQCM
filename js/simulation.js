@@ -28,7 +28,9 @@ var state = {
     this._maxPoints = val;
   },
   set question(val) {
+    console.log("Valeur avant : "+this._question);
     this._question = val;
+    console.log("On a changé la valeur : " +this._question);
   },
   set justification(val) {
     this._actualJustification = val;
@@ -38,23 +40,28 @@ var state = {
   }
 };
 
-function launchSimulation() {
+function launchSimulation(val) {
   // TODO fix more parameters
   $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
+  state.maxPoints = parseInt(val);
+  console.log(state.maxPoints);
   state.actualPoints = 0;
   state.questionsAsked = [];
   nextQuestion();
 }
 
 function nextQuestion() {
-  state.question += 1;
   if (state.question > state.maxPoints) {
     displayResult();
   }
   else {
-    let question = pickQuestion(); //TODO rename that, can be confused
+    let question = pickQuestion(); //TODO rename that, can be confused TODO pick question correctly from chapter
     state.actualJustification = question['justification'];
+    console.log(state.question);
+    console.log(state.question > state.maxPoints);
+    console.log(state.maxPoints);
+    state.question += 1;
     renderQuestion(question);
   }
 }
@@ -89,12 +96,20 @@ function addListenerOptions() {
     $.each($("input[name='checklist-options']:checked"), function(){
                   length += getNbQuestionFromChapter($(this).attr("id"));
     });
+    if (length == 0) {
+      $("#popup-button").attr("disabled");
+    }
     var html = "";
     for (i = 1; i < length - 1; i ++) {
       html += '<option>'+i+'</option>';
     }
     $("#nbQuestionToAsk").html(html);
   });
+  $("#nbQuestionToAsk").on("change", function() {
+      $("#popup-button").attr('onclick', 'launchSimulation('+$("#nbQuestionToAsk option:selected").val()+')')
+  });
+
+    //$("#popup-button").attr("onclick", "launchSimulation()");
 }
 
 function showPopupOptionsSimulation() {
@@ -110,14 +125,15 @@ function showPopupOptionsSimulation() {
   checklist += '</ul>';
   checklist += 'Nombre de questions posées';
   checklist += '<select class="form-control" id="nbQuestionToAsk">';
-  checklist += '<option>Comme à l\'examen ! </option>';
   checklist += '<option> 1 </option>';
   checklist += '</select>';
   $("#popup").attr("class", "modal-content bg-2");
   $("#popup-title").html("Ciblez les chapitres");
   $("#popup-body").html(checklist);
   $("#popup-button").html("C'est parti !");
+  $("#popup-button").attr('onclick', 'launchSimulation('+$("#nbQuestionToAsk option:selected").val()+')');
   $("#myModal").modal("show");
+
   addListenerOptions();
 }
 
@@ -143,6 +159,8 @@ function renderQuestion({assertion, response, justification}) {
 function renderGoodAnswer(){
   $("#popup").attr("class", "modal-content bg-1");
   $("#popup-title").html("Bonne réponse !");
+  $("#popup-button").html("Prochaine question");
+  $("#popup-button").attr('onclick', 'nextQuestion()');
   $("#popup-body").html(state.actualJustification);
   $("#myModal").modal("show");
 }
@@ -151,6 +169,8 @@ function renderBadAnswer(){
   $("#popup").attr("class", "modal-content bg-0");
   $("#popup-title").html("Mauvaise réponse !");
   $("#popup-body").html(state.actualJustification);
+  $("#popup-button").html("Prochaine question");
+  $("#popup-button").attr('onclick', 'nextQuestion()');
   $("#myModal").modal("show");
 }
 
