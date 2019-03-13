@@ -31,7 +31,7 @@ function launchDemo() {
 }
 
 function launchQuizz() {
-
+  $("#block-2").attr("class", "container-fluid bg-2 text-center");
   if (state.question > theorems.length-1) {
     displayResult()
   } else {
