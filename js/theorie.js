@@ -25,6 +25,7 @@ var state = {
 };
 
 function launchTheorie() {
+  $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
   state.actualPoints = 0;
   launchQuizz();
