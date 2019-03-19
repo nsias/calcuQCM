@@ -66,6 +66,17 @@ function nextQuestion() {
   }
 }
 
+function pickQuestion() {  //TODO avoid pick same question
+  var questionPicked = pickRandomChapter()[randomInteger(0, pickRandomChapter().length)];
+  if (state.questionsAsked.indexOf(questionPicked) != -1) {
+    return pickQuestion();
+  }
+  else {
+    state.questionsAsked.push(questionPicked);
+    return questionPicked;
+  }
+}
+
 function pickRandomChapter() {  //TODO add more chapter and pick random
   let index = randomInteger(1,2);
   switch(index) {
@@ -135,17 +146,6 @@ function showPopupOptionsSimulation() {
   $("#myModal").modal("show");
 
   addListenerOptions();
-}
-
-function pickQuestion() {  //TODO avoid pick same question
-  var questionPicked = pickRandomChapter()[randomInteger(0, pickRandomChapter().length)];
-  if (state.questionsAsked.indexOf(questionPicked) != -1) {
-    return pickQuestion();
-  }
-  else {
-    state.questionsAsked.push(questionPicked);
-    return questionPicked;
-  }
 }
 
 function renderQuestion({assertion, response, justification}) {

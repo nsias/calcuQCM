@@ -1,7 +1,7 @@
 var theoremCh1=[
   {
     "name" : "Problème non calculable : détection de virus",
-    "enonce": "enonce_00",
-    "solution":"solution_00"
+    "enonce": "ch1/enonce_00",
+    "solution":"ch1/solution_00"
   }
 ]

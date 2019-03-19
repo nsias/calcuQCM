@@ -33,23 +33,33 @@ function launchTheorie() {
 
 function launchQuizz() {
 
-  if (state.question > magistalCh1.length-1) {
+  if (state.question >= magistralCh3.length) {
     displayResult()
   } else {
     let question = getDemo();
-    state.actualJustification = question['solution'];
-    renderAssertion(question);
+    state.actualJustification = question['justification'];
+    var flag;
+    console.log("justification: "+state.actualJustification);
+    if (state.actualJustification == "") {
+      state.actualJustification = question['solution'];
+      console.log("justification: "+state.actualJustification);
+      flag = true;
+    } else {
+      flag = false;
+    }
+    renderAssertion(question, flag);
   }
 }
 
 function getDemo() {
-  return magistalCh1[0]; // a modifier
+  return magistralCh3[state.question]; // a modifier
 }
 
 function renderAssertion({
   question,
+  justification,
   solution
-}) {
+}, flag) {
   $("#block-1").attr("class", "container-fluid bg-2 text-center");
   var html1 = '<div class="row">';
   html1 += '<h4> ' + question + ' </h4>';
@@ -59,7 +69,7 @@ function renderAssertion({
   var html = '<h4> Réponds sur une feuille à la question</h4>';
   html += '<div class="row">';
   html += '<div class="col s3">';
-  html += '<a href="#" onclick="renderAnswer(\'' + solution + '\')" class="btn btn-default ">Vérifie</a>';
+  html += '<a href="#" onclick="renderAnswer(\'' + solution + '\',' + flag + ')" class="btn btn-default ">Vérifie</a>';
   html += '</div>';
   html += '<div class="col s3">';
   html += '<a href="#" onclick="showScore()" class="btn btn-default">Mon score</a>';
@@ -70,10 +80,17 @@ function renderAssertion({
 
 }
 
-function renderAnswer(filename) {
+function renderAnswer(filename, flag) {
   $("#popup").attr("class", "modal-content bg-3");
   $("#popup-title").html("La réponse !");
-  $("#popup-body").html('<img src="./img/theorie/' + filename + '.png" class="img-responsive margin" style="display:inline">');
+  console.log("justification: "+state.actualJustification+" flag:"+flag);
+  if (flag) {
+    console.log("in flag");
+    $("#popup-body").html('<img src="./img/theorie/' + filename + '.png" class="img-responsive margin" style="display:inline">');
+  } else {
+    console.log("out flag");
+    $("#popup-body").html('<p>'+state.actualJustification+'</p>');
+  }
   $("#popup-footer").html('<a href="#" onclick="interpretResponse(1)" class="btn btn-default btn-lg bg-1" data-dismiss="modal">Ok c\'est bon</a>');
   $("#popup-footer").append('<a href="#" onclick="interpretResponse(0)" class="btn btn-default btn-lg bg-0" data-dismiss="modal">Non c\'est mauvais</a>');
   $("#myModal").modal("show");
