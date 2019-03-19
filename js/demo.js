@@ -32,6 +32,7 @@ var state = {
 };
 function launchDemo(index) {
   $("#myModal").modal("hide");
+  $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
   state.actualPoints = 0;
   selectedChap(index);
@@ -39,11 +40,8 @@ function launchDemo(index) {
 }
 
 function launchQuizz() {
-  $("#block-2").attr("class", "container-fluid bg-2 text-center");
-
-  console.log(state.chapter);
   if (state.chapter != null) {
-    if (state.question > state.chapter.length-1) {
+    if (state.question >= state.chapter.length) {
       displayResult()
     } else {
       let question = getDemo();

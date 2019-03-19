@@ -2,6 +2,8 @@ var state = {
   _actualPoints: 0,
   _question: 0,
   _actualJustification: "",
+  _chapter:null,
+  _index:0,
   // Getters
   get actualPoints() {
     return this._actualPoints;
@@ -12,6 +14,12 @@ var state = {
   get justification() {
     return this._actualJustification;
   },
+  get chapter(){
+    return this._chapter;
+  },
+  get index(){
+    return this._index;
+  },
   //Setter
   set actualPoints(val) {
     this._actualPoints = val;
@@ -21,38 +29,87 @@ var state = {
   },
   set justification(val) {
     this._actualJustification = val;
+  },
+  set chapter(val){
+    this._chapter=val;
+  },
+  set index(val){
+    this._index=val;
   }
 };
 
-function launchTheorie() {
+function launchTheorie(index) {
+  $("#myModal").modal("hide");
   $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
   state.actualPoints = 0;
+  state.index=index
+  selectedChap(state.index);
   launchQuizz();
 }
 
 function launchQuizz() {
-
-  if (state.question >= magistralCh3.length) {
-    displayResult()
-  } else {
-    let question = getDemo();
-    state.actualJustification = question['justification'];
-    var flag;
-    console.log("justification: "+state.actualJustification);
-    if (state.actualJustification == "") {
-      state.actualJustification = question['solution'];
-      console.log("justification: "+state.actualJustification);
-      flag = true;
+  if (state.chapter != null) {
+    if (state.question >= state.chapter.length) {
+      displayResult()
     } else {
-      flag = false;
+      let question = getDemo();
+      state.actualJustification = question['justification'];
+      var flag;
+      if (state.actualJustification == "") {
+        state.actualJustification = question['solution'];
+        flag = true;
+      } else {
+        flag = false;
+      }
+      renderAssertion(question, flag);
     }
-    renderAssertion(question, flag);
   }
 }
-
+function selectedChap(index) {
+  switch (index) {
+    case 1:
+      state.chapter = magistralCh1;
+      return;
+    case 2:
+      state.chapter = magistralCh2;
+      return;
+    case 3:
+      state.chapter = magistralCh3;
+      return;
+    case 4:
+      state.chapter = magistralCh4;
+      return;
+    case 5:
+      state.chapter = magistralCh5;
+      return;
+    case 6:
+      state.chapter = magistralCh6;
+      return;
+    case 7:
+      state.chapter = magistralCh7;
+      return;
+    default:
+      state.chapter = all();
+      return;
+  }
+}
+function all(){
+  var res = magistralCh1.concat(magistralCh2,magistralCh3,magistralCh4,magistralCh5,magistralCh6,magistralCh7);
+  return res;
+}
+function getChap(){
+  state.chapter="";
+  state.index=0;
+  $("#popup").attr("class", "modal-content bg-3");
+  $("#popup-title").html("Choisis le chapitre");
+  var html = '<button type="submit" name="button" onclick="launchTheorie(1)">Chapitre 1</button></br><button type="submit" name="button" onclick="launchTheorie(2)">Chapitre 2</button></br><button type="submit" name="button" onclick="launchTheorie(3)">Chapitre 3</button></br> <button type="submit" name="button" onclick="launchTheorie(4)">Chapitre 4</button></br> <button type="submit" name="button" onclick="launchTheorie(5)">Chapitre 5</button></br> <button type="submit" name="button" onclick="launchTheorie(6)">Chapitre 6</button></br> <button type="submit" name="button" onclick="launchTheorie(7)">Chapitre 7</button></br> <button type="submit" name="button" onclick="launchTheorie(0)">Tout</button>';
+  $("#popup-body").html(html);
+  $("#popup-footer").html("");
+  $("#myModal").modal("show");
+}
 function getDemo() {
-  return magistralCh3[state.question]; // a modifier
+  return state.chapter[state.question]; // a modifier
 }
 
 function renderAssertion({
@@ -118,7 +175,8 @@ function displayResult() {
   $("#block-1").html("Vous avez réussi " + state.actualPoints + " questions sur " + state.question);
   $("#block-2").attr("class", "container-fluid bg-1 text-center");
   $("#block-2").html("");
-  $("#block-2").append('<a href="#" onclick="launchTheorie()" class="btn btn-default btn-lg">Recommencez</a>');
+  $("#block-2").html('<a href="#" onclick="launchTheorie('+state.index+')" class="btn btn-default btn-lg">Recommencez</a>');
+  $("#block-2").append('<a href="#" onclick="getChap()" class="btn btn-default btn-lg">Autres chapitres</a>');
 }
 
 function randomInteger(min, max) {
