@@ -1,4 +1,4 @@
-var wooclapCh1 = [
+var woopclapCh1 = [
   {
     "assertion" :"Certaines tâches ne peuvent être accomplies par un ordinateur",
     "response" : 1,

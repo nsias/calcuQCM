@@ -1,4 +1,4 @@
-var wooclapCh2 = [
+var woopclapCh2 = [
   {
     "assertion" : "L'ensemble des rationnels est énumérable",
     "response" : 1,
