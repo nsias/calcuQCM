@@ -5,5 +5,7 @@ Simple web app with no security for UCL course LINGI1123, based on woopclap cour
 | Feature | faite ? |
 |---|---|
 | la gestion des chapitres par thème | in progress |
+| restructuration fichier | no |
+| ajoute d'une réelle page d'acceuil | no |
 | le feedback sur une séance | no |
 | simulation examen avec timer | no |
