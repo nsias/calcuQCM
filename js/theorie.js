@@ -38,7 +38,7 @@ var state = {
   }
 };
 
-function launchTheorie(index) {
+function launch(index) {
   $("#myModal").modal("hide");
   $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
@@ -79,6 +79,9 @@ function selectedChap(index) {
       return;
     case 4:
       state.chapter = magistralCh4;
+      console.log("not ready");
+      //TODO
+      // insert method to say it's in building and choose an athor chapter
       return;
     case 5:
       state.chapter = magistralCh5;
@@ -103,13 +106,12 @@ function getChap(){
   state.index=0;
   $("#popup").attr("class", "modal-content bg-3");
   $("#popup-title").html("Choisis le chapitre");
-  var html = '<button type="submit" name="button" onclick="launchTheorie(1)">Chapitre 1</button></br><button type="submit" name="button" onclick="launchTheorie(2)">Chapitre 2</button></br><button type="submit" name="button" onclick="launchTheorie(3)">Chapitre 3</button></br> <button type="submit" name="button" onclick="launchTheorie(4)">Chapitre 4</button></br> <button type="submit" name="button" onclick="launchTheorie(5)">Chapitre 5</button></br> <button type="submit" name="button" onclick="launchTheorie(6)">Chapitre 6</button></br> <button type="submit" name="button" onclick="launchTheorie(7)">Chapitre 7</button></br> <button type="submit" name="button" onclick="launchTheorie(0)">Tout</button>';
-  $("#popup-body").html(html);
+  $("#popup-body").load("./html/button_choice_chap.html");
   $("#popup-footer").html("");
   $("#myModal").modal("show");
 }
 function getDemo() {
-  return state.chapter[state.question]; // a modifier
+  return state.chapter[state.question]; // to modify with a pondaration
 }
 
 function renderAssertion({
@@ -140,12 +142,9 @@ function renderAssertion({
 function renderAnswer(filename, flag) {
   $("#popup").attr("class", "modal-content bg-3");
   $("#popup-title").html("La réponse !");
-  console.log("justification: "+state.actualJustification+" flag:"+flag);
   if (flag) {
-    console.log("in flag");
     $("#popup-body").html('<img src="./img/theorie/' + filename + '.png" class="img-responsive margin" style="display:inline">');
   } else {
-    console.log("out flag");
     $("#popup-body").html('<p>'+state.actualJustification+'</p>');
   }
   $("#popup-footer").html('<a href="#" onclick="interpretResponse(1)" class="btn btn-default btn-lg bg-1" data-dismiss="modal">Ok c\'est bon</a>');

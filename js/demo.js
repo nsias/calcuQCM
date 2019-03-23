@@ -30,7 +30,7 @@ var state = {
     this._chapter=val;
   }
 };
-function launchDemo(index) {
+function launch(index) {
   $("#myModal").modal("hide");
   $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
@@ -67,6 +67,8 @@ function selectedChap(index){
   case 5:
     state.chapter = theoremCh5;
     return;
+  case 6:
+    $("#popup").alert("Auncune démonstration pour ce chapitre !")
   case 7:
     state.chapter = theoremCh7;
     return;
@@ -77,15 +79,14 @@ function selectedChap(index){
   }
 }
 function all(){
-  var res = theoremCh1.concat(theoremCh2,theoremCh3,theoremCh4,theoremCh5,theoremCh6,theoremCh7);
+  var res = theoremCh1.concat(theoremCh2,theoremCh3,theoremCh4,theoremCh5,theoremCh7);
   return res;
 }
 function getChap(){
   state.chapter="";
   $("#popup").attr("class", "modal-content bg-3");
   $("#popup-title").html("Choisis le chapitre");
-  var html = '<button type="submit" name="button" onclick="launchDemo(1)">Chapitre 1</button></br><button type="submit" name="button" onclick="launchDemo(2)">Chapitre 2</button></br><button type="submit" name="button" onclick="launchDemo(3)">Chapitre 3</button></br> <button type="submit" name="button" onclick="launchDemo(4)">Chapitre 4</button></br> <button type="submit" name="button" onclick="launchDemo(5)">Chapitre 5</button></br>  <button type="submit" name="button" onclick="launchDemo(7)">Chapitre 7</button></br> <button type="submit" name="button" onclick="launchDemo(0)">Tout</button>';
-  $("#popup-body").html(html);
+  $("#popup-body").load("./html/button_choice_chap.html");
   $("#popup-footer").html("");
   $("#myModal").modal("show");
 }

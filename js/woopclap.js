@@ -30,7 +30,7 @@ var state = {
     this._chapter=val;
   }
 };
-function launchWoopclap(index) {
+function launch(index) {
   $("#myModal").modal("hide");
   $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
@@ -62,11 +62,15 @@ function selectedChap(index){
     state.chapter = woopclapCh3;
     return;
   case 4:
+  //TODO
+  // insert method to say it's in building and choose an athor chapter
     state.chapter = woopclapCh4;
     return;
   case 5:
     state.chapter = woopclapCh5;
     return;
+  case 6:
+    state.chapter = woopclapCh6;
   case 7:
     state.chapter = woopclapCh7;
     return;
@@ -84,8 +88,7 @@ function getChap(){
   state.chapter="";
   $("#popup").attr("class", "modal-content bg-3");
   $("#popup-title").html("Choisis le chapitre");
-  var html = '<button type="submit" name="button" onclick="launchWoopclap(1)">Chapitre 1</button></br><button type="submit" name="button" onclick="launchWoopclap(2)">Chapitre 2</button></br><button type="submit" name="button" onclick="launchWoopclap(3)">Chapitre 3</button></br> <button type="submit" name="button" onclick="launchWoopclap(4)">Chapitre 4</button></br> <button type="submit" name="button" onclick="launchWoopclap(5)">Chapitre 5</button></br>  <button type="submit" name="button" onclick="launchWoopclap(7)">Chapitre 7</button></br> <button type="submit" name="button" onclick="launchWoopclap(0)">Tout</button>';
-  $("#popup-body").html(html);
+  $("#popup-body").load('./html/button_choice_chap.html');
   $("#popup-footer").html("");
   $("#myModal").modal("show");
 }
