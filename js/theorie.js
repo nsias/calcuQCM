@@ -37,7 +37,15 @@ var state = {
     this._index=val;
   }
 };
-
+function getChap(){
+  state.chapter="";
+  state.index=0;
+  $("#popup").attr("class", "modal-content bg-3");
+  $("#popup-title").html("Choisis le chapitre");
+  $("#popup-body").load("./html/button_choice_chap.html");
+  $("#popup-footer").html("");
+  $("#myModal").modal("show");
+}
 function launch(index) {
   $("#myModal").modal("hide");
   $("#block-2").attr("class", "container-fluid bg-2 text-center");
@@ -45,9 +53,10 @@ function launch(index) {
   state.actualPoints = 0;
   state.index=index
   selectedChap(state.index);
-  launchQuizz();
+  if (state.chapter != null) {
+    launchQuizz();
+  }
 }
-
 function launchQuizz() {
   if (state.chapter != null) {
     if (state.question >= state.chapter.length) {
@@ -66,6 +75,9 @@ function launchQuizz() {
     }
   }
 }
+function getDemo() {
+  return state.chapter[state.question]; // to modify with a pondaration
+}
 function selectedChap(index) {
   switch (index) {
     case 1:
@@ -78,19 +90,21 @@ function selectedChap(index) {
       state.chapter = magistralCh3;
       return;
     case 4:
-      state.chapter = magistralCh4;
       console.log("not ready");
-      //TODO
-      // insert method to say it's in building and choose an athor chapter
+      inBuilding();
+      state.chapter = null;//magistralCh4;
       return;
     case 5:
-      state.chapter = magistralCh5;
+      inBuilding();
+      state.chapter = null;//magistralCh5;
       return;
     case 6:
-      state.chapter = magistralCh6;
+      inBuilding();
+      state.chapter = null;//magistralCh6;
       return;
     case 7:
-      state.chapter = magistralCh7;
+      inBuilding();
+      state.chapter = null;//magistralCh7;
       return;
     default:
       state.chapter = all();
@@ -98,21 +112,10 @@ function selectedChap(index) {
   }
 }
 function all(){
-  var res = magistralCh1.concat(magistralCh2,magistralCh3,magistralCh4,magistralCh5,magistralCh6,magistralCh7);
+  var res = magistralCh1.concat(magistralCh2,magistralCh3);//,magistralCh4,magistralCh5,magistralCh6,magistralCh7);
   return res;
 }
-function getChap(){
-  state.chapter="";
-  state.index=0;
-  $("#popup").attr("class", "modal-content bg-3");
-  $("#popup-title").html("Choisis le chapitre");
-  $("#popup-body").load("./html/button_choice_chap.html");
-  $("#popup-footer").html("");
-  $("#myModal").modal("show");
-}
-function getDemo() {
-  return state.chapter[state.question]; // to modify with a pondaration
-}
+
 
 function renderAssertion({
   question,
@@ -180,4 +183,10 @@ function displayResult() {
 
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (+max - +min)) + +min;
+}
+function inBuilding() {
+  console.log("in the function");
+  $("#block-1").attr("class", "container-fluid bg-1 text-center");
+  $("#block-1").html("Désolé, en cours de développement... <br/><p><i class='fas fa-cog home fa-spin'></i></p>");
+  $("#block-2").html('<a href="#" onclick="getChap()" class="btn btn-default btn-lg"> Un autres chapitres ?</a>');
 }

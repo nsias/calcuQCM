@@ -1,12 +1,12 @@
 var woopclapCh7 = [
   {
     "assertion" :"",
-    "response" : ,
+    "response" : 0,
     "justification" : ""
   },
   {
     "assertion" :"",
-    "response" : ,
+    "response" : 0,
     "justification" : ""
   }
 ]
