@@ -3,8 +3,17 @@ font: 20px Montserrat, sans-serif;
 line-height: 1.8;
 color: #f5f6f7;
 }
-p {font-size: 16px;}
-.margin {margin-bottom: 45px;}
+p {
+  font-size: 16px;
+
+}
+p.btn{
+    margin-top: 5%;
+}
+.margin {
+  margin-bottom: 5%;
+  margin-left: 2%
+}
 .bg-0 {
 background-color: #ff5050; /* Red */
 color: #ffffff;
@@ -41,10 +50,29 @@ letter-spacing: 5px;
 .navbar-nav  li a:hover {
 color: #1abc9c !important;
 }
-.home {
-color: #ffffff;
+.index-icon {
 font-size:400%;
+}
+.margin-icon{
+  margin-top: 17%;
+  margin-left: 35%;
 }
 .navbar-icon {
   font-size:150%;
+}
+a.index, a.index:-webkit-any-link{
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
+a.index:focus,a.index :hover{
+  color: #1abc9c;
+  text-decoration: none;
+}
+.progress-bar{
+  background-color: #1abc9c;
+}
+.progress{
+  margin-top: 2%;
+  margin-bottom: 2%;
 }

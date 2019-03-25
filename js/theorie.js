@@ -48,6 +48,7 @@ function getChap(){
 }
 function launch(index) {
   $("#myModal").modal("hide");
+  $("#block-progressbar").load("./html/progressbar.html");
   $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
   state.actualPoints = 0;
@@ -129,14 +130,8 @@ function renderAssertion({
   $("#block-1").html(html1);
   $("#block-2").html("");
   var html = '<h4> Réponds sur une feuille à la question</h4>';
-  html += '<div class="row">';
-  html += '<div class="col s3">';
-  html += '<a href="#" onclick="renderAnswer(\'' + solution + '\',' + flag + ')" class="btn btn-default ">Vérifie</a>';
-  html += '</div>';
-  html += '<div class="col s3">';
+  html += '<a href="#" onclick="renderAnswer(\'' + solution + '\',' + flag + ')" class="btn btn-default" style="margin-right:1%;">Vérifie</a>';
   html += '<a href="#" onclick="showScore()" class="btn btn-default">Mon score</a>';
-  html += '</div>';
-  html += '</div>';
   $("#block-2").html(html);
   $("#block-2").append();
 
@@ -161,6 +156,7 @@ function interpretResponse(answer, response) {
     state.actualPoints += 1;
   }
   state.question += 1;
+  updateProgressBar();
   launchQuizz();
 }
 
@@ -173,11 +169,22 @@ function showScore() {
 }
 
 function displayResult() {
-  $("#block-1").attr("class", "container-fluid bg-1 text-center");
-  $("#block-1").html("Vous avez réussi " + state.actualPoints + " questions sur " + state.question);
-  $("#block-2").attr("class", "container-fluid bg-1 text-center");
+ if (getPercent()<70) {
+   $("#block-1").attr("class", "container-fluid bg-0 text-center");
+   $("#block-2").attr("class", "container-fluid bg-0 text-center");
+ } else {
+   $("#block-1").attr("class", "container-fluid bg-1 text-center");
+   $("#block-2").attr("class", "container-fluid bg-1 text-center");
+ }
+ var q;
+ if (state.actualPoints <2) {
+   q= " question";
+ } else {
+   q= " questions"
+ }
+ $("#block-1").html("Vous avez réussi " + state.actualPoints +q+" sur " + state.question);
   $("#block-2").html("");
-  $("#block-2").html('<a href="#" onclick="launchTheorie('+state.index+')" class="btn btn-default btn-lg">Recommencez</a>');
+  $("#block-2").html('<a href="#" onclick="launch('+state.index+')" class="btn btn-default btn-lg" style="margin-right:1%;">Recommencez</a>');
   $("#block-2").append('<a href="#" onclick="getChap()" class="btn btn-default btn-lg">Autres chapitres</a>');
 }
 
@@ -189,4 +196,14 @@ function inBuilding() {
   $("#block-1").attr("class", "container-fluid bg-1 text-center");
   $("#block-1").html("Désolé, en cours de développement... <br/><p><i class='fas fa-cog home fa-spin'></i></p>");
   $("#block-2").html('<a href="#" onclick="getChap()" class="btn btn-default btn-lg"> Un autres chapitres ?</a>');
+}
+function updateProgressBar(){
+  var val = Math.floor(getPercent());
+  console.log(val);
+  $("#myProgressBar").css('width',val+"%").attr('aria-valuenow',val);
+  $("#myProgressBar").html(val+"%");
+}
+
+function getPercent(){
+  return (state.actualPoints/state.chapter.length)*100;
 }
