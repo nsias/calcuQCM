@@ -91,7 +91,6 @@ function selectedChap(index) {
       state.chapter = magistralCh3;
       return;
     case 4:
-      console.log("not ready");
       inBuilding();
       state.chapter = null;//magistralCh4;
       return;

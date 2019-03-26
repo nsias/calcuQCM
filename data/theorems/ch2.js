@@ -72,7 +72,7 @@ var theoremCh2=[
   {
     "name" : "Les sous-ensembles d'ensembles",
     "enonce": "ch2/enonce_14",
-    "solution":"solution_14"
+    "solution":"ch2/solution_14"
   },
   {
     "name" : "Ensemble de fonctions",
