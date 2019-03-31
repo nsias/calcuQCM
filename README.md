@@ -7,7 +7,7 @@ Simple web app with no security for UCL course LINGI1123, based on woopclap cour
 | la gestion des chapitres par thème | in progress |  |
 | restructuration fichier + cleanage code | in progress |  |
 | randomize intelligemment les question | in progress | |
-| ajout de la notation CC | in progress | j'arrive pas fix la taille du texte |
+| ajout de la notation CC | done |  |
 | ajout d'une réelle page d'acceuil | done | on retire peut etre la photo? |
 | le feedback sur une séance | no |  |
 | simulation examen avec timer | no |  |
