@@ -30,23 +30,44 @@ var state = {
     this._chapter = val;
   }
 };
+const tableOfChapter = new Map();
+var feedBackStack;
 
 function getChap() {
-  state.chapter = "";
+  state.chapter = [];
+  tableOfChapter.clear();
+  feedBackStack = [];
   $("#popup").attr("class", "modal-content bg-3");
   $("#popup-title").html("Choisis le chapitre");
   $("#popup-body").load('./html/button_choice_chap.html');
-  $("#popup-footer").html("");
+  $("#popup-footer").html('<a href="#" onclick="launch()" class="btn btn-default">C\'est parti !</a>');
   $("#myModal").modal("show");
 }
+function add(str) {
+  if (!tableOfChapter.has(str)) {
+    tableOfChapter.set(str, str);
+  }
+}
 
-function launch(index) {
+function remove(str) {
+  if (tableOfChapter.has(str)) {
+    tableOfChapter.delete(str);
+  }
+}
+function launch() {
   $("#myModal").modal("hide");
   $("#block-progressbar").load("./html/progressbar.html");
   $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
   state.actualPoints = 0;
-  selectedChap(index);
+  if (tableOfChapter.has('Tout')) {
+    selectedChap('Tout');
+  } else {
+    for (const chap of tableOfChapter.values()) {
+      console.log(chap);
+      selectedChap(chap);
+    }
+  }
   if (state.chapter != null) {
     launchQuizz();
   }
@@ -70,27 +91,27 @@ function getWoopclap() {
 
 function selectedChap(index) {
   switch (index) {
-    case 1:
-      state.chapter = woopclapCh1;
+    case "Chapitre 1":
+      state.chapter = state.chapter.concat(woopclapCh1);
       return;
-    case 2:
-      state.chapter = woopclapCh2;
+    case "Chapitre 2":
+      state.chapter = state.chapter.concat(woopclapCh2);
       return;
-    case 3:
-      state.chapter = woopclapCh3;
+    case "Chapitre 3":
+      state.chapter = state.chapter.concat(woopclapCh3);
       return;
-    case 4:
+    case "Chapitre 4":
       inBuilding();
       state.chapter = null; //woopclapCh4;
       return;
-    case 5:
+    case "Chapitre 5":
       inBuilding();
       state.chapter = null; //woopclapCh5;
       return;
-    case 6:
+    case "Chapitre 6":
       inBuilding();
       state.chapter = null; //woopclapCh6;
-    case 7:
+    case "Chapitre 7":
       inBuilding();
       state.chapter = null; //woopclapCh7;
       return;
@@ -121,10 +142,10 @@ function renderGoodAnswer() {
   $("#myModal").modal("hide");
   $("#popup").attr("class", "modal-content bg-1");
   $("#popup-title").html("Bonne réponse !");
-  $("#popup-button").html("Prochaine question");
-  $("#popup-button").attr('class', "btn btn-default btn-lg");
-  $("#popup-button").attr('data-dismiss', 'modal');
-  $("#popup-button").attr('onclick', 'updateProgressBar();launchQuizz();');
+  $("#popup-footer").html("<a>Prochaine question</a>");
+  $("#popup-footer").attr('class', "btn btn-default btn-lg");
+  $("#popup-footer").attr('data-dismiss', 'modal');
+  $("#popup-footer").attr('onclick', 'updateProgressBar();launchQuizz();');
   $("#popup-body").html(state.actualJustification);
   $("#myModal").modal("show");
 }
@@ -134,8 +155,8 @@ function renderBadAnswer() {
   $("#popup").attr("class", "modal-content bg-0");
   $("#popup-title").html("Mauvaise réponse !");
   $("#popup-body").html(state.actualJustification);
-  $("#popup-button").html("Prochaine question");
-  $("#popup-button").attr('onclick', 'updateProgressBar();launchQuizz();');
+  $("#popup-footer").html("<a>Prochaine question</a>");
+  $("#popup-footer").attr('onclick', 'updateProgressBar();launchQuizz();');
   $("#myModal").modal("show");
 }
 
@@ -145,6 +166,7 @@ function interpretResponse(answer, response) {
     state.actualPoints += 1;
     renderGoodAnswer();
   } else {
+    feedBackStack = feedBackStack.concat(getWoopclap()['assertion']);
     renderBadAnswer();
   }
   state.question += 1;
@@ -160,7 +182,7 @@ function showScore() {
 }
 
 function displayResult() {
-  if (getPercent() < 70) {
+  if (((state.actualPoints/state.chapter.length)*100) < 70) {
     $("#block-1").attr("class", "container-fluid bg-0 text-center");
     $("#block-2").attr("class", "container-fluid bg-0 text-center");
   } else {
@@ -174,10 +196,21 @@ function displayResult() {
     q = " questions"
   }
   $("#block-1").html("Vous avez réussi " + state.actualPoints + q + " sur " + state.question);
-  $("#block-2").html('<a href="#" onclick="launch(' + state.index + ')" class="btn btn-default btn-lg" style="margin-right:1%;">Recommencez</a>');
-  $("#block-2").append('<a href="#" onclick="getChap()" class="btn btn-default btn-lg">Autres chapitres</a>');
+  $("#block-2").html('<a href="#" onclick="launch()" class="btn btn-default btn-lg" style="margin-right:1%;">Recommencez</a>');
+  $("#block-2").append('<a href="#" onclick="getChap()" class="btn btn-default btn-lg" style="margin-right:1%;">Autres chapitres</a>');
+  $("#block-2").append('<a href="#" onclick="displayFeedback()" class="btn btn-default btn-lg">feedback</a>');
 }
+function displayFeedback(){
+  $("#popup-score").attr("class", "modal-content bg-0");
+  $("#popup-title-score").html("FEEDBACK");
+  $("#popup-body-score").attr("class","bg-3 text-left")
+  $("#popup-body-score").html("");
+  feedBackStack.forEach(function(current,idx){
+  $("#popup-body-score").append("question:"+current+"</br>");
+  });
 
+  $("#myModal-score").modal("show");
+}
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (+max - +min)) + +min;
 }
@@ -197,5 +230,5 @@ function updateProgressBar() {
 }
 
 function getPercent() {
-  return (state.actualPoints / state.chapter.length) * 100;
+  return (state.question / state.chapter.length) * 100;
 }

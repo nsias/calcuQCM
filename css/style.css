@@ -76,3 +76,17 @@ a.index:focus,a.index :hover{
   margin-top: 2%;
   margin-bottom: 2%;
 }
+.button_selection{
+  background-color: #ffffff;
+  color: #555555;
+  border-radius: 8px;
+}
+.button_selection:hover{
+  background-color: #1abc9c;
+  color: #fff;
+}
+.button_selection.active{
+  background-color: #1abc9c;
+  color: #fff;
+  border-radius: 8px;
+}

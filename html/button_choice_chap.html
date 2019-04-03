@@ -1,15 +1,26 @@
-<button type="submit" name="button" onclick="launch(1)">Chapitre 1</button>
+<button type="submit" name="button" class="button_selection">Chapitre 1</button>
 </br>
-<button type="submit" name="button" onclick="launch(2)">Chapitre 2</button>
+<button type="submit" name="button" class="button_selection">Chapitre 2</button>
 </br>
-<button type="submit" name="button" onclick="launch(3)">Chapitre 3</button>
+<button type="submit" name="button" class="button_selection">Chapitre 3</button>
 </br>
-<button type="submit" name="button" onclick="launch(4)">Chapitre 4</button>
+<button type="submit" name="button" class="button_selection">Chapitre 4</button>
 </br>
-<button type="submit" name="button" onclick="launch(5)">Chapitre 5</button>
+<button type="submit" name="button" class="button_selection">Chapitre 5</button>
 </br>
-<button type="submit" name="button" onclick="launch(6)">Chapitre 6</button>
+<button type="submit" name="button" class="button_selection">Chapitre 6</button>
 </br>
-<button type="submit" name="button" onclick="launch(7)">Chapitre 7</button>
+<button type="submit" name="button" class="button_selection">Chapitre 7</button>
 </br>
-<button type="submit" name="button" onclick="launch(0)">Tout</button>
+<button type="submit" name="button" class="button_selection">Tout</button>
+<script>
+  $('.button_selection').on('click', function(){
+    if($(this).hasClass("active")) {
+      $(this).removeClass("active");
+      remove($(this).html());
+  } else {
+    $(this).addClass("active");
+    add($(this).html());
+  }
+    });
+</script>

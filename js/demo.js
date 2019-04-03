@@ -1,6 +1,7 @@
 var state = {
   _actualPoints: 0,
   _question: 0,
+  _actualQuestion: null,
   _actualJustification: "",
   _chapter:null,
   _index:0,
@@ -20,6 +21,9 @@ var state = {
   get index(){
     return this._index;
   },
+  get actualQuestion(){
+    return this._actualQuestion;
+  },
   //Setter
   set actualPoints(val) {
     this._actualPoints = val;
@@ -35,26 +39,56 @@ var state = {
   },
   set index(val){
     this._index=val;
+  },
+  set actualQuestion(val){
+    this._actualQuestion = val
   }
 };
+
+const tableOfChapter = new Map();
+var feedBackStack;
+const askedQuestions =  new Map();
+
 function getChap(){
-  state.chapter="";
-  state.index = 0;
+  state.chapter=[];
+  tableOfChapter.clear();
+  feedBackStack = [];
+  askedQuestions.clear();
   $("#popup").attr("class", "modal-content bg-3");
   $("#popup-title").html("Choisis le chapitre");
   $("#popup-body").load("./html/button_choice_chap.html");
-  $("#popup-footer").html("");
+  $("#popup-footer").html('<a href="#" onclick="launch()" class="btn btn-default">C\'est parti !</a>');
   $("#myModal").modal("show");
 }
+function add(str) {
+  if (!tableOfChapter.has(str)) {
+    console.log("add "+str);
+    tableOfChapter.set(str, str);
+  }
+}
 
-function launch(index) {
+function remove(str) {
+  if (tableOfChapter.has(str)) {
+    console.log("remove "+str);
+    tableOfChapter.delete(str);
+  }
+}
+
+function launch() {
   $("#myModal").modal("hide");
   $("#block-progressbar").load("./html/progressbar.html");
   $("#block-2").attr("class", "container-fluid bg-2 text-center");
   state.question = 0;
   state.actualPoints = 0;
-  state.index=index;
-  selectedChap(state.index);
+  state.actualQuestion=null;
+  if (tableOfChapter.has('Tout')) {
+    selectedChap('Tout');
+  } else {
+    for (const chap of tableOfChapter.values()) {
+      console.log(chap);
+      selectedChap(chap);
+    }
+  }
   if (state.chapter != null) {
     launchQuizz();
   }
@@ -65,7 +99,8 @@ function launchQuizz() {
     if (state.question >= state.chapter.length) {
       displayResult()
     } else {
-      let question = getDemo();
+      let question = getRandQuestion();
+      state.actualQuestion = question;
       state.actualJustification = question['solution'];
       renderAssertion(question);
     }
@@ -74,31 +109,48 @@ function launchQuizz() {
 function getDemo() {
   return state.chapter[state.question];
 }
+function getRandQuestion(){
+  var rand = randomInteger(0,state.chapter.length);
+  console.log(rand);
+  let question = state.chapter[rand];
+  if(!askedQuestions.has(question['name'])){
+    console.log("add np asked question")
+    askedQuestions.set(question['name'],question);
+    return question;
+  }
+  if(state.question >= state.chapter.length){
+    console.log("Trop loin");
+  }
+  return getRandQuestion();
+}
 function selectedChap(index){
+  console.log("in selection with "+index);
   switch (index) {
-  case 1:
-    state.chapter = theoremCh1;
+  case "Chapitre 1":
+    state.chapter = state.chapter.concat(theoremCh1);
     return;
-  case 2:
-    state.chapter = theoremCh2;
+  case "Chapitre 2":
+    state.chapter = state.chapter.concat(theoremCh2);
     return;
-  case 3:
-    state.chapter = theoremCh3;
+  case "Chapitre 3":
+    state.chapter = state.chapter.concat(theoremCh3);
     return;
-  case 4:
-    state.chapter = theoremCh4;
+  case "Chapitre 4":
+    state.chapter = state.chapter.concat(theoremCh4);
     return;
-  case 5:
-    state.chapter = theoremCh5;
+  case "Chapitre 5":
+    state.chapter = state.chapter.concat(theoremCh5);
     return;
-  case 6:
+  case "Chapitre 6":
     $("#popup").attr("class", "modal-content bg-3");
-    $("#popup-title").html("Information")
-    $("#popup-body").html("Auncune démonstration pour ce chapitre !")
-  case 7:
-    state.chapter = theoremCh7;
+    $("#popup-title").html("Information");
+    $("#popup-body").html("Auncune démonstration pour ce chapitre !");
+    return;
+  case "Chapitre 7":
+    state.chapter = state.chapter.concat(theoremCh7);
     return;
   default:
+    console.log("all");
     state.chapter = all();
     return;
 
@@ -147,6 +199,8 @@ function interpretResponse(answer) {
 
   if (answer == 1) {
     state.actualPoints += 1;
+  }else{
+    feedBackStack = feedBackStack.concat(getDemo()['name']);
   }
   state.question += 1;
   updateProgressBar();
@@ -162,7 +216,7 @@ function showScore() {
 }
 
 function displayResult() {
-  if (getPercent()<70) {
+  if (((state.actualPoints/state.chapter.length)*100)<70) {
     $("#block-1").attr("class", "container-fluid bg-0 text-center");
     $("#block-2").attr("class", "container-fluid bg-0 text-center");
   } else {
@@ -177,10 +231,21 @@ function displayResult() {
   }
   $("#block-1").html("Vous avez réussi " + state.actualPoints + q+" sur " + state.question);
   $("#block-2").html("");
-  $("#block-2").html('<a href="#" onclick="launch('+state.index+')" class="btn btn-default btn-lg" style="margin-right:1%;">Recommencez</a>');
-  $("#block-2").append('<a href="#" onclick="getChap()" class="btn btn-default btn-lg">Autres chapitres</a>');
+  $("#block-2").html('<a href="#" onclick="launch()" class="btn btn-default btn-lg" style="margin-right:1%;">Recommencez</a>');
+  $("#block-2").append('<a href="#" onclick="getChap()" class="btn btn-default btn-lg style="margin-right:1%;">Autres chapitres</a>');
+  $("#block-2").append('<a href="#" onclick="displayFeedback()" class="btn btn-default btn-lg">feedback</a>');
 }
+function displayFeedback(){
+  $("#popup-score").attr("class", "modal-content bg-0");
+  $("#popup-title-score").html("FEEDBACK");
+  $("#popup-body-score").attr("class","bg-3 text-left")
+  $("#popup-body-score").html("");
+  feedBackStack.forEach(function(current,idx){
+    $("#popup-body-score").append("question:"+current+"</br>");
+  });
 
+  $("#myModal-score").modal("show");
+}
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (+max - +min)) + +min;
 }
@@ -192,11 +257,10 @@ function inBuilding() {
 }
 function updateProgressBar(){
   var val = Math.floor(getPercent());
-  console.log(val);
   $("#myProgressBar").css('width',val+"%").attr('aria-valuenow',val);
   $("#myProgressBar").html(val+"%");
 }
 
 function getPercent(){
-  return (state.actualPoints/state.chapter.length)*100;
+  return (state.question/state.chapter.length)*100;
 }
