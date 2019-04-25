@@ -9,4 +9,3 @@ Simple web app with no security for UCL course LINGI1123, based on woopclap cour
 | randomize sans répétition les question | done | |
 | ajout de la notation CC | done |  |
 | le feedback sur une séance | done |  |
-| simulation examen avec timer | no |  |
