@@ -58,5 +58,37 @@ var magistralCh3 = [
     "question":"Définis un nombre réel calculable",
     "justification":"",
     "solution":"ch3/solution_10"
+  },
+  {
+    "question":"Définis un ensemble récursif",
+    "justification":"",
+    "solution":"ch3/solution_11"
+  },
+  {
+    "question":"Définis l'ensemble récursivement énumérable",
+    "justification":"",
+    "solution":"ch3/solution_12"
+  },
+  {
+    "question":"Définis l'ensemble co-récursivement énumérable",
+    "justification":"",
+    "solution":"ch3/solution_13"
+  },
+  {
+    "question":"Qu'est-ce que P_k",
+    "justification":"P_k est le programme numéro k dans P. P est l'ensemble des programmes Java qui reçoivent un ou plusieurs entiers comme donnée(s) et qui retournent un résultat.",
+    "solution":"solution_"
+  },
+  {//verification requise
+    "question":"Qu'est-ce qu'un langage non-trivial",
+    "justification":"C'est un langage où les opérations de base tel que l'addition peuvent être effectuées.",
+    "solution":"solution_"
+  },
+  {//verification
+    "question":"Quand qualifie-t-on un langage de restrictif",
+    "justification":"Lorsque le langage est non trivial que son interpreteur n'est pas calculable par ce dernier et qu'il existe des fonctions totales calculables non programmables dans ce langage.",
+    "solution":"solution_"
   }
+
+
 ]

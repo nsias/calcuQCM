@@ -116,7 +116,7 @@ function getDemo() {
   return state.chapter[state.question]; // to modify with a pondaration
 }
 function getRandQuestion(){
-  var rand = randomInteger(0,state.chapter.length);
+  var rand = randomInteger(0,state.chapter.length-1);
   console.log(rand);
   let question = state.chapter[rand];
   if(!askedQuestions.has(question['question'])){
@@ -141,8 +141,7 @@ function selectedChap(index) {
       state.chapter = state.chapter.concat(magistralCh3);
       return;
     case "Chapitre 4":
-      inBuilding();
-      state.chapter = null; //magistralCh4;
+      state.chapter = state.chapter.concat(magistralCh4);
       return;
     case "Chapitre 5":
       inBuilding();
