@@ -144,16 +144,13 @@ function selectedChap(index) {
       state.chapter = state.chapter.concat(magistralCh4);
       return;
     case "Chapitre 5":
-      inBuilding();
-      state.chapter = null; //magistralCh5;
+      state.chapter = state.chapter.concat(magistralCh5);
       return;
     case "Chapitre 6":
-      inBuilding();
-      state.chapter = null; //magistralCh6;
+      state.chapter = state.chapter.concat(magistralCh6);
       return;
     case "Chapitre 7":
-      inBuilding();
-      state.chapter = null; //magistralCh7;
+      state.chapter = state.chapter.concat(magistralCh7);
       return;
     default:
       state.chapter = all();
@@ -162,7 +159,7 @@ function selectedChap(index) {
 }
 
 function all() {
-  var res = magistralCh1.concat(magistralCh2, magistralCh3); //,magistralCh4,magistralCh5,magistralCh6,magistralCh7);
+  var res = magistralCh1.concat(magistralCh2, magistralCh3,magistralCh4,magistralCh5,magistralCh6,magistralCh7);
   return res;
 }
 

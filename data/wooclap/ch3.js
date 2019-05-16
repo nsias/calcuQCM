@@ -195,8 +195,73 @@ var woopclapCh3 = [
     "justification": "Si on a une totale calculable, il y a un programme, le programme s’arrête. Le programme qui boucle toujours, fonction partielle vide est calculable. Toutes les fonctipns totales calculables sont extension de cette fonction partielle vide."
   },
   {
-    "assertion": "Il existe une fonction partielle calculable telle qu’aucune fonction totale calculable n’est une ex- tension de cette fonction partielle",
+    "assertion": "Il existe une fonction partielle calculable telle qu’aucune fonction totale calculable n’est une extension de cette fonction partielle",
     "response": 1,
     "justification": "Par diagonalisation"
+  },
+  {
+  "assertion": "L’ensemble des programmes Java calculant une fonction f telle que f(10)=10 est un ensemble récursif",
+  "response":0,
+  "justification":"théorème de Rice, classer les programmes qui calculent 10 à partir de 10"
+  },
+  {
+  "assertion": "L’ensemble des programmes Java calculant une fonction f telle que f(10)=10 est un ensemble récursivement énumérable.",
+  "response":1,
+  "justification":"mais pas un théorème, Rice parle uniquement de la non récursivité.Récursivement énumérable, on exécute le programme pour la donnée 10 et on voit si il donne la réponse"
+  },
+  {
+  "assertion": "Toute propriété relative aux programmes est non calculable",
+  "response":0,
+  "justification":"toute propriété relative à ce que fait le programme, à la fonction calculée Ex : est-ce que le programme possède une instruction while"
+  },
+  {
+  "assertion": "Si A est un sous-ensemble (strict et non vide) récursif de programmes Java, alors toute fonction calculée par un programme de A est aussi calculée par un programme du complément de A",
+  "response":0,
+  "justification":"Il existe, pas pour tout !"
+  },
+  {
+  "assertion":"La propriété S-m-n affirme que tout numéro de programme calculable peut être transformé en un numéro équivalent, mais avec moins de paramètres",
+  "response":0,
+  "justification":"ne veut rien dire"
+  },
+  {
+  "assertion": "Les propriétés S-m-n et S sont équivalentes ",
+  "response":0,
+  "justification":"Propriété S = propriété S-m-n affaiblie"
+  },
+  {
+  "assertion": "Tous les langages de programmation satisfont la propriété S-m-n ",
+  "response":1,
+  "justification":""
+  },
+  {
+  "assertion":"Le théorème du point fixe est une conséquence du théorème de Rice",
+  "response":0,
+  "justification":"C'est l'inverse, on peut démontrer rice avec le point fixe"
+  },
+  {
+  "assertion":"Si deux programmes P1 et P2 calculent la même fonction, alors il existe un transformateur f de programmes (f fonction totale calculable) , tel que f(P1)=P2",
+  "response":1,
+  "justification":"Fonction qui remplace toujours tout par P2 pas le point fixe !"
+  },
+  {
+  "assertion":"Si f est un transformateur de programmes (f fonction totale calculable), alors il existe deux programmes P1 et P2 tels que f(P1)=P2 ainsi que P1 et P2 calculent la même fonction",
+  "response":1,
+  "justification":"Théorème du point fixe !"
+  },
+  {
+  "assertion":"Si f est un transformateur de programmes (f fonction totale calculable), alors il existe deux programmes P1 et P2 tels que f(P1)=P2 ainsi que P1 et P2 calculent la même fonction totale ",
+  "response":0,
+  "justification":"Pas **totale** pas forcément des fonctions qui se terminent toujours (faire boucler)"
+  },
+  {
+  "assertion":"Le théorème du point fixe permet de démontrer que la fonction halt est non calculable ",
+  "response":1,
+  "justification":"Théorème du PF est la base"
+  },
+  {
+  "assertion":"L’ensemble des nombres réels calculables est énumérable ",
+  "response":1,
+  "justification":"Réel calculable, programme qui se permet de se rapprocher du nombre"
   }
 ]

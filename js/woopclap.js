@@ -101,19 +101,15 @@ function selectedChap(index) {
       state.chapter = state.chapter.concat(woopclapCh3);
       return;
     case "Chapitre 4":
-      inBuilding();
-      state.chapter = null; //woopclapCh4;
+      state.chapter = state.chapter.concat(woopclapCh4);
       return;
     case "Chapitre 5":
-      inBuilding();
-      state.chapter = null; //woopclapCh5;
+      state.chapter = state.chapter.concat(woopclapCh5);
       return;
     case "Chapitre 6":
-      inBuilding();
-      state.chapter = null; //woopclapCh6;
+      state.chapter = state.chapter.concat(woopclapCh6);
     case "Chapitre 7":
-      inBuilding();
-      state.chapter = null; //woopclapCh7;
+      state.chapter = state.chapter.concat(woopclapCh7);
       return;
     default:
       state.chapter = all();
@@ -122,7 +118,7 @@ function selectedChap(index) {
 }
 
 function all() {
-  var res = woopclapCh1.concat(woopclapCh2, woopclapCh3); //,woopclapCh4,woopclapCh5,woopclapCh6,woopclapCh7);
+  var res = woopclapCh1.concat(woopclapCh2, woopclapCh3,woopclapCh4,woopclapCh5,woopclapCh6,woopclapCh7);
   return res;
 }
 
@@ -156,6 +152,8 @@ function renderBadAnswer() {
   $("#popup-title").html("Mauvaise réponse !");
   $("#popup-body").html(state.actualJustification);
   $("#popup-footer").html("<a>Prochaine question</a>");
+  $("#popup-footer").attr('class', "btn btn-default btn-lg");
+  $("#popup-footer").attr('data-dismiss', 'modal');
   $("#popup-footer").attr('onclick', 'updateProgressBar();launchQuizz();');
   $("#myModal").modal("show");
 }
