@@ -116,7 +116,7 @@ function getDemo() {
   return state.chapter[state.question]; // to modify with a pondaration
 }
 function getRandQuestion(){
-  var rand = randomInteger(0,state.chapter.length-1);
+  var rand = randomInteger(0,state.chapter.length);
   console.log(rand);
   let question = state.chapter[rand];
   if(!askedQuestions.has(question['question'])){

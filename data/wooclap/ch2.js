@@ -12,7 +12,7 @@ var woopclapCh2 = [
   {
     "assertion" : "Tout ensemble infini de chaînes finies de caractères est énumérable",
     "response" : 1,
-    "justification" : "On peut représenter ça dans un tableau et par diagonale montante c'est énumérable. Autre justification : c'est un peu comme dire que l'ensemble des programmes est énumérable, un programme étant une chaine finie de caractère"
+    "justification" : "Tableau dont la ligne i est composée des chaînes de caractères de longueur i. Si l’alphabet est fini, chaque ligne est finie. Si l’alphabet est infini (énumérable), chaque ligne est infinie (énumérable) ; on prend alors les diagonales montantes pour énumérer le tout."
   },
   {
     "assertion" : "Tout ensemble infini de chaînes infinies de caractères est énumérable",
@@ -21,13 +21,13 @@ var woopclapCh2 = [
   },
   {
     "assertion" : "L'ensemble des fonctions N vers {0, 1} est non énumérable",
-    "response" : 0,
-    "justification" : "(TODO : Help Michael)"
+    "response" : 1,
+    "justification" : "Pour le prouver, il suffit de voir que ça peut facilement être mis en bijection avec l'ensemble des réels entre 0 et 1, codés en binaire. Ou encore, l'ensemble des sous-ensembles de N."
   },
   {
     "assertion" : "Tout langage (alphabet fini) est énumérable",
     "response" : 1,
-    "justification" : "Vu que c'est un alphabet fini, on peut lister chaque élément du langage (TODO : meilleur justification ? )"
+    "justification" : "Un langage est un ensemble de chaines finies de caractères. Et tout ensemble infini de chaînes finies de caractères est énumérable."
   },
   {
     "assertion" : "Toute fonction bijective est injective",
@@ -37,7 +37,7 @@ var woopclapCh2 = [
   {
     "assertion" : "Une fonction dont la table est infinie ne peut être décrite de manière finie",
     "response" : 0,
-    "justification" : "On peut représenter les entiers de manière finie dans un tableau infini"
+    "justification" : "La fonction f(n)=n+1 est ici décrite de manière finie mais a une table infinie"
   },
   {
     "assertion" : "Toute fonction totale est surjective",
@@ -57,7 +57,7 @@ var woopclapCh2 = [
   {
     "assertion" : "La fonction 0,1 vers N est énumérable",
     "response" : 1,
-    "justification" : "(TODO : Help Michael) Car il y a une bijection avec les paires d'entiers"
+    "justification" : "Car il y a une bijection avec les paires d'entiers"
   },
   {
     "assertion" : "L'ensemble des programmes Java est énumérable",

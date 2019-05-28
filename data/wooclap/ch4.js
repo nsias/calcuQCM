@@ -42,12 +42,12 @@ var woopclapCh4 = [
   {
   "assertion":"Tout langage reconnu par un automate fini peut être reconnu par un automate à pile ",
   "response":1,
-  "justification":""
+  "justification":"Les automates à pile sont plus généraux que les automates finis"
   },
   {
   "assertion":"Tout langage récursif peut être décrit par une grammaire hors contexte ",
   "response":0,
-  "justification":"Un langage récursif = un langage équivalent aux machines de Turing qui s’arrêtent toujours (attention, pas confondre avec un langage récursivement énumérable qui est équivalent aux ma- chines de Turing qui peuvent ne jamais s’arrêter). Grammaire hors contexte : automate à pile (Même justification pour le 8 et 9)."
+  "justification":"Les grammaires hors-contextes s’arrêtent toujours. Par Hoare Allison, elles ne peuvent couvrir tous les langages récursifs."
   },
   {
   "assertion":"Tout automate fini 0 déterministe peut être transformé en un automate fini déterministe équivalent",
@@ -100,7 +100,7 @@ var woopclapCh4 = [
   "justification":"C’est aussi puissant"
   },
   {
-  "assertion":"Soit une MT T qui reçoit en entrée une représentation d’une MT et qui fournit (toujours) comme résultat une représentation d’une MT. Il existe deux MT T1 et T2 tel que (1) l’exécution de T sur la représentation de T2 donne pour résultat T2, (2) T1 et T2 calculent la même fonction",
+  "assertion":"Soit une MT T qui reçoit en entrée une représentation d'une MT et qui fournit (toujours) comme résultat une représentation d'une MT. Il existe deux MT T1 et T2 tel que (1) l'exécution de T sur la représentation de T1 donne pour résultat T2, (2) T1 et T2 calculent la même fonction",
   "response":1,
   "justification":"J’imagine qu’il y a une faute dans l’énoncé et qu’en réalité, c’est : (1) ’exécution de T sur la représentation de T1 donne pour résultat T2. Dans ce cas, c’est 1 par le théorème du point fixe."
   },
@@ -127,7 +127,7 @@ var woopclapCh4 = [
   {
   "assertion":"Toute expression lambda possède au moins une forme réduite",
   "response":0,
-  "justification":"Certains choix de réduction peuvent ne jamais se terminer. Si pour n’importe quel choix on n’arrive jamais à une forme réduite, l’expression lambda est non définie."
+  "justification":"Sur certaines expressions lambda, une réduction peut être appliquée de manière infinie, indépendamment de la stratégie de réduction choisie."
   },
   {
   "assertion":"Le lambda calcul est un modèle complet de calculabilité ",

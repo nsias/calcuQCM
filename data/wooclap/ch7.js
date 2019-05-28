@@ -11,7 +11,7 @@ var woopclapCh7 = [
 
   {"assertion":"Un ensemble est f-réductible (fonctionnellement réductible) à son complément.",
   "response":0,
-  "justification":""
+  "justification":"On sait que si un ensemble A est f-reductibe à B et que B est récursivement énumérable, alors A est aussi rec. Enum. Si cette affirmation était vraie, alors K serait récursif."
   },
 
   {"assertion":"Si A peut être décidé par un algorithme polynomial et si B est f-réductible à A, alors B peut être décidé par un algorithme polynomial.",
@@ -100,7 +100,7 @@ var woopclapCh7 = [
 
   {"assertion":"Un problème NP-complet est intrinsèquement complexe. ",
   "response":1,
-  "justification":""
+  "justification":"VRAI si P =/= NP. FAUX si P=NP"
   },
 
   {"assertion":"Le choix d’un modèle de calculabilité n’influence pas les classes P et NP. ",
@@ -110,10 +110,10 @@ var woopclapCh7 = [
 
   {"assertion":"Le problème de la programmation linéaire est NP-complet.",
   "response":0,
-  "justification":"Il est NP-complet dans un cas particulier sinon il est NP-Hard."
+  "justification":"Il existe un algorithme polynomial pour la programmation linéaire. Mais certains algorithmes de complexité exponentielle (dans le pire des cas) ont une complexité polynomiale sur beaucoup d’instances."
   },
 
-  {"assertion":"Un problème de décision dans P , alors le problème consistant à calculer une solution est égale- ment dans P",
+  {"assertion":"Si un problème de décision dans P , alors le problème consistant à calculer une solution est également dans P",
   "response":1,
   "justification":""
   },
@@ -150,6 +150,6 @@ var woopclapCh7 = [
 
   {"assertion":"Si SAT ≤a A et A ∈ P, alors SAT ∈ P",
   "response":0 ,
-  "justification":"car c’est une réduction algorithmique : A recursif ⇒ Sat Recursif. Or SAT étant récursif (on sait le décider, on a un programme total le calculant) l’implication est toujours 1 peut importe A et ne nous apprend absolument rien."
+  "justification":"Cette affirmation est vraie pour la réduction polynomiale, pas pour la réduction algorithmique."
   }
 ]
