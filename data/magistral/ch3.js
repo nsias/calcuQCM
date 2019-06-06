@@ -71,8 +71,8 @@ var magistralCh3 = [
   },
   {
     "question":"Définis l'ensemble co-récursivement énumérable",
-    "justification":"",
-    "solution":"ch3/solution_13"
+    "justification":"Un ensemble A est co-récursivement énumérable si son complément Ā = N \ A est récursivement énumérable.",
+    "solution":""
   },
   {
     "question":"Qu'est-ce que P_k",
